@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <center>
+        <div class="container">
+            <div class="title">
+                <h1><i>Temperature Converter</i></h1>
+            </div>
+            <div class="input">
+                <div id="celsius">
+                    <p>Celsius</p>
+                    <input type="number" placeholder="Enter Celsius">
+                </div>
+                <div id="fahrenheit">
+                    <p>Fahrenheit</p>
+                    <input type="number" placeholder="Enter Fahrenheit">
+                </div>
+                <div id="kelvin">
+                    <p>Kelvin</p>
+                    <input type="number" placeholder="Enter Kelvin">
+                </div>
+            </div>
+            <div class="output">
+                <button>Clear</button>
+            </div>
+        </div>
+    </center>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let celsiusInput = document.querySelector('#celsius > input');
+            let fahrenheitInput = document.querySelector('#fahrenheit > input');
+            let kelvinInput = document.querySelector('#kelvin > input');
+            let clearButton = document.querySelector('.output button');
+
+            function roundNumber(number) {
+                return Math.round(number * 100) / 100;
+            }
+
+            celsiusInput.addEventListener('input', function () {
+                let cTemp = parseFloat(celsiusInput.value);
+                if (!isNaN(cTemp)) {
+                    let fTemp = (cTemp * (9 / 5)) + 32;
+                    let kTemp = cTemp + 273.15;
+                    fahrenheitInput.value = roundNumber(fTemp);
+                    kelvinInput.value = roundNumber(kTemp);
+                } else {
+                    fahrenheitInput.value = "";
+                    kelvinInput.value = "";
+                }
+            });
+            fahrenheitInput.addEventListener('input', function () {
+                let fTemp = parseFloat(fahrenheitInput.value);
+                if (!isNaN(fTemp)) {
+                    let cTemp = (fTemp - 32) * (5 / 9);
+                    let kTemp = cTemp + 273.15;
+                    celsiusInput.value = roundNumber(cTemp);
+                    kelvinInput.value = roundNumber(kTemp);
+                } else {
+                    celsiusInput.value = "";
+                    kelvinInput.value = "";
+                }
+            });
+            kelvinInput.addEventListener('input', function () {
+                let kTemp = parseFloat(kelvinInput.value);
+                if (!isNaN(kTemp)) {
+                    let cTemp = kTemp - 273.15;
+                    let fTemp = (cTemp * (9 / 5)) + 32;
+                    celsiusInput.value = roundNumber(cTemp);
+                    fahrenheitInput.value = roundNumber(fTemp);
+                } else {
+                    celsiusInput.value = "";
+                    fahrenheitInput.value = "";
+                }
+            });
+            clearButton.addEventListener('click', function () {
+                celsiusInput.value = "";
+                fahrenheitInput.value = "";
+                kelvinInput.value = "";
+            });
+        });
+    </script>
+</body>
+</html> 
